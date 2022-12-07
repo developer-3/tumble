@@ -7,7 +7,7 @@ namespace tumble {
     class Entity {
     public:
         Entity() 
-            : position(Vector3(0.0f,0.0f,0.0f)), damping(0.995f) 
+            : position(Vector3(0.0f,0.0f,0.0f)), velocity(Vector3(0.0f,0.0f,0.0f)), damping(0.995f) 
             { };
 
         virtual ~Entity() { };

@@ -8,16 +8,23 @@ namespace tumble {
         std::cout << "system initialized" << std::endl;
     };
 
-    // System::System(std::vector<Entity> entities) {
-    //     this->entities = entities;
-    // };
-
     System::System(std::vector<Component> components) {
         this->components = components;
     };
 
-    // System::System(std::vector<Entity> *entities, std::vector<Component> components) {
-    //     this->entities = entities;
-    //     this->components = components;
-    // };
+
+    void System::addEntity(std::shared_ptr<Entity> entity)
+    {
+        this->entities.push_back(entity);
+    }
+
+
+    void System::integrateEntities(real duration)
+    {
+        for (auto &entity : entities)
+        {
+            entity->integrate(duration);
+        }
+    }
+
 }

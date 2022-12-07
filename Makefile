@@ -4,7 +4,7 @@ SRC := $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
 LDFLAGS := -shared
 LDLIBS :=
 OBJFILES := $(SRC:.cpp=.o)
-TARGET = sandbox/lib/libtumble.so
+TARGET = /usr/local/lib/libtumble.so
 
 all: $(TARGET)
 
