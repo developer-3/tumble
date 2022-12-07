@@ -16,6 +16,49 @@ namespace tumble {
         Vector3(const real x, const real y, const real z) 
             : x(x), y(y), z(z) {}
 
+        Vector3 operator+(const Vector3& vec)
+        {
+            return Vector3(x+vec.x, y+vec.y, z+vec.z);
+        }
 
+        void operator+=(const Vector3& vec)
+        {
+            x += vec.x;
+            y += vec.y;
+            z += vec.z;
+        }
+
+        Vector3 operator-(const Vector3& vec)
+        {
+            return Vector3(x-vec.x, y-vec.y, z-vec.z);
+        }
+
+        void operator-=(const Vector3& vec)
+        {
+            x -= vec.x;
+            y -= vec.y;
+            z -= vec.z;
+        }
+
+        Vector3 operator*(const Vector3& vec)
+        {
+            return Vector3(x*vec.x, y*vec.y, z*vec.z);
+        }
+
+        void operator*=(const real value)
+        {
+            x *= value;
+            y *= value;
+            z *= value;
+        }
+
+        void addScaledVector(const Vector3&, real);
+
+        void clear()
+        {
+            x = 0.0f;
+            y = 0.0f;
+            z = 0.0f;
+        }
     };
 }

@@ -14,7 +14,12 @@ namespace tumble {
 
         ~Particle() { };
 
+        /**
+         * @brief update particle's position based
+         * on velocity and acceleration
+         * 
+         * @param duration 
+         */
         void integrate(real duration);
-
     };
 }

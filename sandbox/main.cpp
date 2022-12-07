@@ -11,10 +11,6 @@
 
 int main(int argc, char* argv[]){
 
-    tumble::System system;
-
-    tumble::Particle particle;
-
     // Create a window data type
     // This pointer will point to the 
     // window that is allocated from SDL_CreateWindow
@@ -54,6 +50,31 @@ int main(int argc, char* argv[]){
     // Setup our function pointers
     gladLoadGLLoader(SDL_GL_GetProcAddress);
 
+    // Setup renderer
+    SDL_Renderer* renderer = NULL;
+    renderer =  SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
+
+    // Clear winow
+    SDL_RenderClear( renderer );
+
+    // setup for particles
+    tumble::Particle particle;
+    particle.setMass(1.0f);
+    particle.setAcceleration(tumble::Vector3(0.0f, 0.0f, 0.0f));
+    particle.setDamping(0.995f);
+
+    // Creat a rect at pos ( 50, 50 ) that's 50 pixels wide and 50 pixels high.
+    SDL_Rect r;
+    r.x = particle.getPosition().x;
+    r.y = particle.getPosition().y;
+    r.w = 50;
+    r.h = 50;
+
+    // Set render color to blue ( rect will be rendered in this color )
+    SDL_SetRenderDrawColor( renderer, 0, 0, 255, 255 );
+
+    unsigned int time = SDL_GetTicks();
+
     // Infinite loop for our application
     bool gameIsRunning = true;
     while(gameIsRunning){
@@ -67,12 +88,12 @@ int main(int argc, char* argv[]){
                 gameIsRunning= false;
             }
             if(event.type == SDL_MOUSEMOTION){
-                std::cout << "mouse has been moved\n";
+                // std::cout << "mouse has been moved\n";
             }
             if(event.type == SDL_KEYDOWN){
                 std::cout << "a key has been pressed\n";
-                if(event.key.keysym.sym == SDLK_0){
-                    std::cout << "0 was pressed\n";
+                if(event.key.keysym.sym == SDLK_1){
+                    particle.setVelocity(tumble::Vector3(1.0f, 0.0f, 0.0f));
                 }else{
                     std::cout << "0 was not pressed\n";
                 }
@@ -85,6 +106,30 @@ int main(int argc, char* argv[]){
                 std::cout << "right arrow key is pressed\n";
             }
         }
+
+
+        SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+        SDL_RenderClear(renderer);
+
+        // Do drawing
+
+        // Render rect
+        SDL_SetRenderDrawColor( renderer, 0, 0, 255, 255 );
+        SDL_RenderFillRect( renderer, &r );
+
+        unsigned int last = SDL_GetTicks() - time;
+
+        particle.integrate(last);
+
+        r.x = particle.getPosition().x;
+        r.y = particle.getPosition().y;
+
+        time = SDL_GetTicks();
+
+        // Show renderer
+        SDL_RenderPresent(renderer);
+
+        SDL_Delay(1);
 
         glClearColor(1.0f,0.0f,0.0f,1.0f);
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
