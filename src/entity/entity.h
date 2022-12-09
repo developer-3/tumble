@@ -46,9 +46,11 @@ namespace tumble {
             damping = value;
         }
 
+        real getMass() { return 1/inverseMass; }
+
         void setMass(const real value)
         {
-            inverseMass = value;
+            inverseMass = 1/value;
         }
 
         void clearAccumulator()
@@ -57,6 +59,8 @@ namespace tumble {
         }
 
         virtual void integrate(real duration) = 0;
+
+        void addForce(const Vector3 &force);
     };
 
 };

@@ -1,5 +1,5 @@
 CXX = clang++
-CXXFLAGS = -Wall -fPIC
+CXXFLAGS = -std=c++11 -Wall -fPIC
 SRC := $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
 LDFLAGS := -shared
 LDLIBS :=

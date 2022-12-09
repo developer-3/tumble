@@ -8,10 +8,6 @@ namespace tumble {
         std::cout << "system initialized" << std::endl;
     };
 
-    System::System(std::vector<Component> components) {
-        this->components = components;
-    };
-
 
     void System::addEntity(std::shared_ptr<Entity> entity)
     {
@@ -21,10 +17,24 @@ namespace tumble {
 
     void System::integrateEntities(real duration)
     {
+        for (auto &component : components)
+        {
+            for (auto &entity : entities)
+            {
+                //if (!entity->hasFiniteMass()) continue;
+                entity->addForce(component->force * entity->getMass());
+            }
+        }
+
         for (auto &entity : entities)
         {
             entity->integrate(duration);
         }
+    }
+
+    void System::addComponent(std::shared_ptr<Component> component)
+    {
+        this->components.push_back(component);
     }
 
 }

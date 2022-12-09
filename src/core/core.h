@@ -40,9 +40,9 @@ namespace tumble {
             z -= vec.z;
         }
 
-        Vector3 operator*(const Vector3& vec)
+        Vector3 operator*(const real value)
         {
-            return Vector3(x*vec.x, y*vec.y, z*vec.z);
+            return Vector3(x*value, y*value, z*value);
         }
 
         void operator*=(const real value)
